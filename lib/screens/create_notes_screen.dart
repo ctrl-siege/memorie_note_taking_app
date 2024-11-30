@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:memorie_note_taking_app/global_providers_container.dart';
 
 class CreateNotesScreen extends ConsumerWidget {
   const CreateNotesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final folderService = ref.watch(folderServiceProvider);
+
     final TextEditingController nameController = TextEditingController();
     final TextEditingController folderController = TextEditingController();
     final TextEditingController notesController = TextEditingController();
@@ -35,6 +38,8 @@ class CreateNotesScreen extends ConsumerWidget {
                       if (name == "") {
                         name = "Untitled";
                       }
+
+                      folderService.addNote(name, folder, notes);
 
                       Navigator.pop(context);
                     },
